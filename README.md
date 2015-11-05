@@ -26,6 +26,18 @@ Add into your `composer.json`:
 
 [Get your own api key](https://tech.yandex.com/keys/get/?service=rca)
 
+```php
+use s37dap42x\Yandex\RichContentAPI;
+
+try {
+    $yandex = new RichContent($key);
+    $data = $yandex->getContent($url);
+    var_dump($data);
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
+```
+
 #License
 
 [MIT](LICENSE)

@@ -1,7 +1,11 @@
 <?php namespace Yandex\RichContentAPI;
 
-use GuzzleHttp\Client;
+use Yandex\RichContentAPI\Exception;
 
+/**
+ * Class RichContent
+ * @package Yandex\RichContentAPI
+ */
 class RichContent
 {
     /**
@@ -25,7 +29,7 @@ class RichContent
 
     /**
      * Optional parameters
-     * See documentation
+     * look up documentation
      * @link https://tech.yandex.com/rca/doc/dg/index-docpage/
      *
      * @var array
@@ -79,6 +83,7 @@ class RichContent
      *
      * @param string
      * @return mixed
+     * @throws \Yandex\RichContentAPI\Exception
      */
     protected function executeData($url)
     {
@@ -89,17 +94,16 @@ class RichContent
         curl_setopt($ch, CURLOPT_HEADER, false);
 
         $json = curl_exec($ch);
-        var_dump($json);
 
-        if ($json === false) {
-            throw new Exception(curl_error($ch), curl_errno($ch));
-            echo curl_error($ch) . curl_errno($ch);
-            echo "123";
-        }
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         curl_close($ch);
 
         $data = json_decode($json, true);
+
+        if($http_code != "200") {
+            throw new Exception($http_code, $data);
+        }
 
         return $data;
     }
