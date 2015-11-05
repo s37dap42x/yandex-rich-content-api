@@ -12,12 +12,14 @@ class RichContent
      * Base URL to Yandex Rich Contetn API
      */
     const BASE_URI = "http://rca.yandex.com/";
+
     /**
      * The URL that data is being requested for
      *
      * @var string
      */
     public $url;
+
     /**
      * Optional parameters
      * look up documentation
@@ -26,6 +28,7 @@ class RichContent
      * @var array
      */
     public $options = [];
+
     /**
      * Unique API key
      *
