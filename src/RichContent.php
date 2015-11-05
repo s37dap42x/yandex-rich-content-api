@@ -11,7 +11,7 @@ class RichContent
     /**
      * Base URL to Yandex Rich Contetn API
      */
-	const BASE_URI = "http://rca.yandex.com/";
+    const BASE_URI = "http://rca.yandex.com/";
     /**
      * The URL that data is being requested for
      *
@@ -26,7 +26,7 @@ class RichContent
      * @var array
      */
     public $options = [];
-	/**
+    /**
      * Unique API key
      *
      * @var string
@@ -39,25 +39,25 @@ class RichContent
      *
      * @param string $key The API key
      */
-	public function __construct($key)
-	{
-		$this->key = $key;
-	}
+    public function __construct($key)
+    {
+        $this->key = $key;
+    }
 
     /**
      * @param $url
      * @return mixed
      * @throws \Yandex\RichContentAPI\Exception
      */
-	public function getContent($url)
-	{
+    public function getContent($url)
+    {
         $this->url = $url;
 
         $exec_url = $this->composeExecURL();
         $data = $this->executeData($exec_url);
 
         return $data;
-	}
+    }
 
     /**
      * Compose URL for executing
