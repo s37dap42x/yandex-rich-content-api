@@ -12,21 +12,12 @@ class RichContent
      * Base URL to Yandex Rich Contetn API
      */
 	const BASE_URI = "http://rca.yandex.com/";
-
-	/**
-     * Unique API key
-     *
-     * @var string
-     */
-    protected $key;
-
     /**
      * The URL that data is being requested for
      *
      * @var string
      */
-	public $url;
-
+    public $url;
     /**
      * Optional parameters
      * look up documentation
@@ -35,7 +26,12 @@ class RichContent
      * @var array
      */
     public $options = [];
-
+	/**
+     * Unique API key
+     *
+     * @var string
+     */
+    protected $key;
 
     /**
      * Get a free API key on this page:
@@ -48,7 +44,11 @@ class RichContent
 		$this->key = $key;
 	}
 
-
+    /**
+     * @param $url
+     * @return mixed
+     * @throws \Yandex\RichContentAPI\Exception
+     */
 	public function getContent($url)
 	{
         $this->url = $url;
