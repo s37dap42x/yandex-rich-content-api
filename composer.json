@@ -13,7 +13,7 @@
   ],
     "require": {
         "php": ">=5.5.0",
-        "ext-curl": "*"
+        "guzzlehttp/guzzle": "^6.1"
     },
     "autoload": {
     "psr-4": {

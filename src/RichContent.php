@@ -1,12 +1,13 @@
 <?php namespace Yandex\RichContentAPI;
 
+use GuzzleHttp\Client;
 
 class RichContent
 {
     /**
      * Base URL to Yandex Rich Contetn API
      */
-	const BASE_API_URL = "http://rca.yandex.com/";
+	const BASE_URI = "http://rca.yandex.com/";
 
 	/**
      * Unique API key
@@ -61,7 +62,7 @@ class RichContent
      */
     public function composeExecURL()
     {
-        $url = self::BASE_API_URL . "?key=" . $this->key . "&url=" . urlencode($this->url);
+        $url = self::BASE_URI . "?key=" . $this->key . "&url=" . urlencode($this->url);
 
         if(!empty($this->options)) {
             foreach($this->options as $key => $value) {
@@ -81,19 +82,26 @@ class RichContent
      */
     protected function executeData($url)
     {
-        $curl = curl_init();
+        $ch = curl_init();
 
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
 
-        $json = curl_exec($curl);
+        $json = curl_exec($ch);
+        var_dump($json);
 
-        curl_close($curl);
-        return $json;
-        /*
+        if ($json === false) {
+            throw new Exception(curl_error($ch), curl_errno($ch));
+            echo curl_error($ch) . curl_errno($ch);
+            echo "123";
+        }
+
+        curl_close($ch);
+
         $data = json_decode($json, true);
 
-        return $data;*/
+        return $data;
     }
 
 }
