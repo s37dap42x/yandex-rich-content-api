@@ -1,0 +1,7 @@
+{
+    "name": "s37dap42x/yandex-rich-content-api",
+    "description": "Client fo Yandex Rich Content API",
+    "require": {
+        "php": ">=5.6.0"
+    }
+}
