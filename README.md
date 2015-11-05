@@ -27,7 +27,12 @@ Add into your `composer.json`:
 [Get your own api key](https://tech.yandex.com/keys/get/?service=rca)
 
 ```php
-use s37dap42x\Yandex\RichContentAPI;
+require "vendor/autoload.php";
+
+use Yandex\RichContentAPI\RichContent;
+
+$key = "rca.1.1...";
+$url = "http://yandex.com";
 
 try {
     $yandex = new RichContent($key);
