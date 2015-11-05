@@ -33,6 +33,7 @@ class RichContent
      */
     protected $key;
 
+
     /**
      * Get a free API key on this page:
      * @link https://tech.yandex.com/keys/get/?service=rca
@@ -44,6 +45,7 @@ class RichContent
         $this->key = $key;
     }
 
+    
     /**
      * @param $url
      * @return mixed
