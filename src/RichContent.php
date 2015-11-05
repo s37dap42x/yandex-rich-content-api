@@ -45,7 +45,7 @@ class RichContent
         $this->key = $key;
     }
 
-    
+
     /**
      * @param $url
      * @return mixed
@@ -60,6 +60,7 @@ class RichContent
 
         return $data;
     }
+
 
     /**
      * Compose URL for executing
