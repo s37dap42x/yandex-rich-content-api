@@ -20,7 +20,7 @@ or manually add into your `composer.json`:
 ```json
 {
   "require": {
-    "s37dap42x/yandex-rich-content-api": "^1.1"
+    "s37dap42x/yandex-rich-content-api": "^1.1.x"
   }
 }
 ```
@@ -40,8 +40,12 @@ $url = "http://yandex.com";
 
 try {
     $yandex = new RichContent($key);
+
+    // Set optional parameters
+    $yandex->setOptions(['img' => 'no', 'content' => 'full']);
+
     $data = $yandex->getContent($url);
-    var_dump($data);
+    var_dump($data); // object
 } catch (Exception $e) {
     echo $e->getMessage();
 }

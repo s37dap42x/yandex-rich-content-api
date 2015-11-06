@@ -14,11 +14,18 @@ class RichContent
     const BASE_URI = "http://rca.yandex.com/";
 
     /**
+     * Unique API key
+     *
+     * @var string
+     */
+    protected $key;
+
+    /**
      * The URL that data is being requested for
      *
      * @var string
      */
-    public $url;
+    protected $url;
 
     /**
      * Optional parameters
@@ -27,14 +34,14 @@ class RichContent
      *
      * @var array
      */
-    public $options = [];
+    protected $options = [];
 
     /**
-     * Unique API key
+     * Composed url for executing
      *
      * @var string
      */
-    protected $key;
+    private $exec_url;
 
 
     /**
@@ -50,6 +57,36 @@ class RichContent
 
 
     /**
+     * Set optional parameters
+     * @param array
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
+
+
+    /**
+     * Get optional parameters
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+
+    /**
+     * Get url
+     * @return string
+     */
+    public function getURL()
+    {
+        return $this->url;
+    }
+
+
+    /**
      * @param $url
      * @return mixed
      * @throws \Yandex\RichContentAPI\Exception
@@ -57,30 +94,26 @@ class RichContent
     public function getContent($url)
     {
         $this->url = $url;
+        $this->composeExecURL();
 
-        $exec_url = $this->composeExecURL();
-        $data = $this->executeData($exec_url);
-
-        return $data;
+        return $this->executeData();
     }
 
 
     /**
      * Compose URL for executing
-     *
-     * @return string
      */
-    public function composeExecURL()
+    protected function composeExecURL()
     {
-        $url = self::BASE_URI . "?key=" . $this->key . "&url=" . urlencode($this->url);
+        $exec_url = self::BASE_URI . "?key=" . $this->key . "&url=" . urlencode($this->url);
 
         if(!empty($this->options)) {
             foreach($this->options as $key => $value) {
-                $url .= "&" . $key . "=" . $value;
+                $exec_url .= "&" . $key . "=" . $value;
             }
         }
 
-        return $url;
+        $this->exec_url = $exec_url;
     }
 
 
@@ -91,11 +124,11 @@ class RichContent
      * @return mixed
      * @throws \Yandex\RichContentAPI\Exception
      */
-    protected function executeData($url)
+    protected function executeData()
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $this->exec_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
@@ -105,7 +138,7 @@ class RichContent
 
         curl_close($ch);
 
-        $data = json_decode($json, true);
+        $data = json_decode($json);
 
         if($http_code != "200") {
             throw new Exception($http_code, $data);
