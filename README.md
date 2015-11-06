@@ -11,24 +11,28 @@ The Rich Content API provides access to the Yandex content system, containing te
 Package version corresponds to the version of the API.
 
 # Installation
+Use composer:
 
-Add into your `composer.json`:
+`composer require s37dap42x/yandex-rich-content-api`
+
+or manually add into your `composer.json`:
 
 ```json
 {
   "require": {
-    "s37dap42x/yandex-rich-content-api": "1.1"
+    "s37dap42x/yandex-rich-content-api": "^1.1"
   }
 }
 ```
+
+and then use the update command:
+`composer update`
 
 # Usage
 
 [Get your own api key](https://tech.yandex.com/keys/get/?service=rca)
 
 ```php
-require "vendor/autoload.php";
-
 use Yandex\RichContentAPI\RichContent;
 
 $key = "rca.1.1...";
