@@ -20,7 +20,7 @@ or manually add into your `composer.json`:
 ```json
 {
   "require": {
-    "s37dap42x/yandex-rich-content-api": "^1.1.x"
+    "s37dap42x/yandex-rich-content-api": "1.1.*"
   }
 }
 ```
